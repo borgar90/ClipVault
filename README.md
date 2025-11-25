@@ -1,6 +1,6 @@
-# CopyHistory
+# ClipVault
 
-CopyHistory is a small Windows clipboard history tool for developers and power‑users.
+ClipVault is a small Windows clipboard history tool for developers and power‑users.
 It silently monitors your clipboard in the background, stores text snippets in a
 local SQLite database, and gives you a quick GUI for browsing and re‑copying past
 snippets.
@@ -36,7 +36,7 @@ The project is designed to be:
   - Closing the window (X) hides the GUI but keeps monitoring in the background.
   - A system tray icon stays active under “show hidden icons”.
   - Tray menu:
-    - **Show CopyHistory** – restore the main window.
+    - **Show ClipVault** – restore the main window.
     - **Quit** – stop monitoring and exit the app.
 
 - **Export & maintenance**
@@ -71,7 +71,7 @@ The project is designed to be:
   - Optional: monitor, list, and copy commands via the console.
   - Not needed for normal end‑users, but useful for debugging and power‑users.
 
-- `CopyHistory.spec`
+- `ClipVault.spec`
   - PyInstaller spec file used to build the standalone `.exe`.
 
 - `requirements.txt`
@@ -137,7 +137,7 @@ From the project root:
 
 ```powershell
 python -m PyInstaller `
-  --name CopyHistory `
+  --name ClipVault `
   --windowed `
   --icon icon.ico `
   --add-data "icon.png;." `
@@ -147,7 +147,7 @@ python -m PyInstaller `
 
 This produces:
 
-- `dist\CopyHistory\CopyHistory.exe` – the main executable.
+- `dist\ClipVault\ClipVault.exe` – the main executable.
 - Bundled `icon.png` / `logo.png` alongside the exe.
 
 The code uses a `resource_path()` helper so image paths work both in dev and from
@@ -158,7 +158,7 @@ the PyInstaller bundle.
 ## Windows installer (Inno Setup)
 
 To give users a familiar installer with shortcuts and an optional autostart
-checkbox, you can wrap `CopyHistory.exe` with Inno Setup.
+checkbox, you can wrap `ClipVault.exe` with Inno Setup.
 
 ### 1) Create a license
 
@@ -173,14 +173,14 @@ Inno Setup will show this and require acceptance before installation.
 
 ### 2) Inno Setup script (example)
 
-Create `CopyHistoryInstaller.iss` and adjust paths if needed:
+Create `ClipVaultInstaller.iss` and adjust paths if needed:
 
 ```ini
-#define MyAppName "CopyHistory"
+#define MyAppName "ClipVault"
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Borgar Flaen Stensrud"
 #define MyAppURL "https://borgar-stensrud.no/"
-#define MyAppExeName "CopyHistory.exe"
+#define MyAppExeName "ClipVault.exe"
 
 [Setup]
 AppId={{A0C8F2C1-1E3F-4C18-9E0E-123456789ABC}
@@ -190,9 +190,9 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\CopyHistory
-DefaultGroupName=CopyHistory
-OutputBaseFilename=CopyHistorySetup
+DefaultDirName={autopf}\ClipVault
+DefaultGroupName=ClipVault
+OutputBaseFilename=ClipVaultSetup
 Compression=lzma
 SolidCompression=yes
 LicenseFile=license.txt
@@ -203,17 +203,17 @@ DisableProgramGroupPage=no
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "autostart"; Description: "Start CopyHistory when Windows starts"; \
+Name: "autostart"; Description: "Start ClipVault when Windows starts"; \
   GroupDescription: "Additional options:"; Flags: unchecked
 
 [Files]
-Source: "dist\CopyHistory\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "dist\CopyHistory\icon.png"; DestDir: "{app}"; Flags: ignoreversion
-Source: "dist\CopyHistory\logo.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "dist\ClipVault\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "dist\ClipVault\icon.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "dist\ClipVault\logo.png"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\CopyHistory"; Filename: "{app}\{#MyAppExeName}"
-Name: "{userdesktop}\CopyHistory"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\ClipVault"; Filename: "{app}\{#MyAppExeName}"
+Name: "{userdesktop}\ClipVault"; Filename: "{app}\{#MyAppExeName}"
 
 [Registry]
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; \
@@ -221,14 +221,14 @@ Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; \
   ValueData: """{app}\{#MyAppExeName}"""; Tasks: autostart
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "Launch CopyHistory"; \
+Filename: "{app}\{#MyAppExeName}"; Description: "Launch ClipVault"; \
   Flags: nowait postinstall skipifsilent
 ```
 
 Open this script in Inno Setup, compile it, and you’ll get a
-`CopyHistorySetup.exe` installer that:
+`ClipVaultSetup.exe` installer that:
 
-- Installs CopyHistory into `Program Files`.
+- Installs ClipVault into `Program Files`.
 - Adds Start Menu (and optional Desktop) shortcuts.
 - Optional autostart on login (per user).
 - Shows and enforces your license terms.
@@ -257,4 +257,3 @@ Open this script in Inno Setup, compile it, and you’ll get a
   without written permission from the author.
 - The software is provided “as is”, without warranty of any kind; use at your
   own risk.
-

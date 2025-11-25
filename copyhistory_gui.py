@@ -37,7 +37,7 @@ from copyhistory_core import (
 
 
 class SingleInstanceError(RuntimeError):
-    """Raised when another CopyHistory instance is already running."""
+    """Raised when another ClipVault instance is already running."""
 
 
 class SingleInstanceLock:
@@ -54,7 +54,7 @@ class SingleInstanceLock:
             msvcrt.locking(self._fh.fileno(), msvcrt.LK_NBLCK, 1)
         except OSError:
             self._fh.close()
-            raise SingleInstanceError("Another CopyHistory instance is already running.")
+            raise SingleInstanceError("Another ClipVault instance is already running.")
 
     def release(self) -> None:
         try:
@@ -209,7 +209,7 @@ class SnippetCard(ttk.Frame):
 
 
 class CopyHistoryApp(tk.Tk):
-    """Main window for CopyHistory with Sun Valley light theme."""
+    """Main window for ClipVault with Sun Valley light theme."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -217,7 +217,7 @@ class CopyHistoryApp(tk.Tk):
         # Apply Sun Valley light theme
         sv_ttk.set_theme("light")
 
-        self.title("CopyHistory - Clipboard History")
+        self.title("ClipVault - Clipboard History")
 
         # Icon
         self._icon_photo: Optional[PhotoImage]
@@ -353,7 +353,7 @@ class CopyHistoryApp(tk.Tk):
 
         about_menu = tk.Menu(menubar, tearoff=False)
         about_menu.add_command(
-            label="About CopyHistory...",
+            label="About ClipVault...",
             command=self._show_about_dialog,
         )
         menubar.add_cascade(label="About", menu=about_menu)
@@ -546,7 +546,7 @@ class CopyHistoryApp(tk.Tk):
     def _show_about_dialog(self) -> None:
         """Show an About dialog with logo, link and short intro."""
         about = tk.Toplevel(self)
-        about.title("About CopyHistory")
+        about.title("About ClipVault")
         about.geometry("380x260")
         if self._icon_photo is not None:
             about.iconphoto(False, self._icon_photo)
@@ -563,13 +563,13 @@ class CopyHistoryApp(tk.Tk):
 
         title_label = ttk.Label(
             content,
-            text="CopyHistory",
+            text="ClipVault",
             font=("Segoe UI", 14, "bold"),
         )
         title_label.grid(row=1, column=0, pady=(0, 4))
 
         intro_text = (
-            "CopyHistory is a simple clipboard\n"
+            "ClipVault is a simple clipboard\n"
             "history tool created by\n"
             "Borgar Flaen Stensrud."
         )
@@ -778,20 +778,20 @@ class CopyHistoryApp(tk.Tk):
 
     def _copy_selected(self) -> None:
         if not self.last_selected_id:
-            messagebox.showinfo("CopyHistory", "Click a snippet card first.")
+            messagebox.showinfo("ClipVault", "Click a snippet card first.")
             return
         self._copy_item_to_clipboard(self.last_selected_id)
 
     def _copy_item_to_clipboard(self, item_id: int) -> None:
         item: Optional[ClipItem] = get_clip_by_id(item_id)
         if not item:
-            messagebox.showerror("CopyHistory", f"Item with id {item_id} not found.")
+            messagebox.showerror("ClipVault", f"Item with id {item_id} not found.")
             return
 
         try:
             pyperclip.copy(item.content)
         except Exception as exc:
-            messagebox.showerror("CopyHistory", f"Error writing to clipboard:\n{exc}")
+            messagebox.showerror("ClipVault", f"Error writing to clipboard:\n{exc}")
             return
 
         self.status_label.configure(text=f"Copied item {item.id} to clipboard.")
@@ -801,7 +801,7 @@ class CopyHistoryApp(tk.Tk):
     def _show_item_details(self, item_id: int) -> None:
         item: Optional[ClipItem] = get_clip_by_id(item_id)
         if not item:
-            messagebox.showerror("CopyHistory", f"Item with id {item_id} not found.")
+            messagebox.showerror("ClipVault", f"Item with id {item_id} not found.")
             return
 
         detail_window = tk.Toplevel(self)
@@ -866,11 +866,11 @@ class CopyHistoryApp(tk.Tk):
             tray_image = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
 
         menu = pystray.Menu(
-            pystray.MenuItem("Show CopyHistory", self._tray_show),
+            pystray.MenuItem("Show ClipVault", self._tray_show),
             pystray.MenuItem("Quit", self._tray_quit),
         )
 
-        self.tray_icon = pystray.Icon("CopyHistory", tray_image, "CopyHistory", menu)
+        self.tray_icon = pystray.Icon("ClipVault", tray_image, "ClipVault", menu)
 
         def run_tray() -> None:
             self.tray_icon.run()
@@ -930,7 +930,7 @@ def main() -> None:
         instance_lock = SingleInstanceLock()
     except SingleInstanceError:
         # Optional: print a message; UI feedback is tricky without another Tk root
-        print("CopyHistory GUI is already running for this user.", file=sys.stderr)
+        print("ClipVault GUI is already running for this user.", file=sys.stderr)
         return
 
     app = CopyHistoryApp()
