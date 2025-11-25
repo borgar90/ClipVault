@@ -1,0 +1,11 @@
+CopyHistory – License
+
+Copyright (c) 2025 Borgar Flaen Stensrud
+
+- You may use CopyHistory free of charge.
+- You may distribute unmodified copies of CopyHistory freely.
+- You may NOT modify, reverse engineer, or otherwise alter the program or
+  distribute modified versions without explicit written permission from
+  the author.
+- The software is provided “as is”, without warranty of any kind. The
+  author is not liable for any damages arising from use of this software.

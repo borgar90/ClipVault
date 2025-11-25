@@ -7,3 +7,10 @@ build/
 # Local SQLite database (created on first run)
 history.db
 
+# Inno Setup build output
+installer/Output/
+
+# IDE / OS noise (optional)
+.vscode/
+.idea/
+*.log

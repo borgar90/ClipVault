@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from dataclasses import dataclass
 from datetime import datetime
@@ -8,6 +9,8 @@ from typing import List, Optional
 try:
     from dotenv import load_dotenv
 
+    # In dev, .env files can sit next to this module; in a bundled exe,
+    # this is best-effort and safe to ignore if not found.
     for env_name in (".env.local", ".env"):
         env_path = Path(__file__).with_name(env_name)
         if env_path.exists():
@@ -17,7 +20,33 @@ except ImportError:
     pass
 
 
-DB_FILE = str(Path(__file__).with_name("history.db"))
+def _resolve_db_file() -> str:
+    """
+    Determine a per-user, writable path for the SQLite database.
+
+    Priority:
+      1. CLIPVAULT_DB_PATH env var (if set)
+      2. %LOCALAPPDATA%\ClipVault\history.db (on Windows)
+      3. %APPDATA%\ClipVault\history.db
+      4. ~/ClipVault/history.db as a last resort
+    """
+    custom = os.getenv("CLIPVAULT_DB_PATH")
+    if custom:
+        db_path = Path(custom)
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+        return str(db_path)
+
+    base_dir = (
+        os.getenv("LOCALAPPDATA")
+        or os.getenv("APPDATA")
+        or str(Path.home())
+    )
+    app_dir = Path(base_dir) / "ClipVault"
+    app_dir.mkdir(parents=True, exist_ok=True)
+    return str(app_dir / "history.db")
+
+
+DB_FILE = _resolve_db_file()
 
 
 @dataclass
@@ -156,4 +185,3 @@ def delete_all_clips() -> int:
         return cursor.rowcount
     finally:
         conn.close()
-

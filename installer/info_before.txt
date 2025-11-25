@@ -1,0 +1,49 @@
+ClipVault – Setup Information (Before Install)
+=============================================
+
+Thank you for trying ClipVault.
+
+What ClipVault does
+-------------------
+
+- Monitors your Windows clipboard for text you copy.
+- Stores snippets in a local SQLite database (`history.db`) on your machine.
+- Lets you search, browse, and re‑copy past snippets from a simple GUI.
+- Can run in the background with a tray icon so it keeps working even when
+  the main window is closed.
+
+What ClipVault does NOT do
+--------------------------
+
+- It does **not** send your snippets to any server.
+- It does **not** share your data with other users on the same machine unless
+  they have access to your Windows account files.
+
+Security / privacy note
+-----------------------
+
+- Snippets are stored **unencrypted** in `history.db`.
+- Any process or user that can read your user files can, in principle, read
+  the clipboard history.
+- Be mindful of copying highly sensitive data (e.g. passwords, keys,
+  private documents) if you do not want them retained in a local history.
+
+System requirements
+-------------------
+
+- Windows 10 or Windows 11, 64‑bit.
+- No separate Python installation is required; ClipVault is distributed as a
+  self‑contained executable.
+
+Recommended usage
+-----------------
+
+- Install ClipVault into the default location unless you have a good reason
+  to change it.
+- Optionally enable the “Start with Windows” option so the clipboard history
+  is always available.
+
+By continuing with the installation, you confirm that you have read and
+understood the above information. ClipVault is provided “as is”, without
+warranty of any kind; use at your own risk.
+

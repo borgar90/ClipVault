@@ -1,0 +1,54 @@
+ClipVault – Setup Complete
+==========================
+
+ClipVault has been installed on this computer.
+
+Where to find ClipVault
+-----------------------
+
+- Start Menu: a “ClipVault” entry was added under your programs.
+- Optional: a desktop shortcut was created if you selected that option in
+  the installer.
+
+How ClipVault behaves
+---------------------
+
+- When you run ClipVault, it starts monitoring your clipboard for new text
+  snippets and stores them in a local `history.db` file.
+- Closing the main window using the X button does **not** stop monitoring.
+  Instead, the window is hidden and ClipVault continues running in the
+  background.
+- A tray icon (under “show hidden icons” in the Windows taskbar) shows that
+  ClipVault is active.
+
+Tray icon menu
+--------------
+
+- **Show ClipVault** – restores the main window so you can search and copy
+  snippets.
+- **Quit** – stops monitoring and exits ClipVault completely.
+
+Autostart (if selected)
+-----------------------
+
+- If you chose to start ClipVault with Windows, it will launch automatically
+  when you log in. You can change this later by:
+  - Unchecking ClipVault in the Startup section of Task Manager, or
+  - Removing its entry from `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`.
+
+Data location
+-------------
+
+- The clipboard history is stored in a file named `history.db`, created next
+  to the ClipVault executable or in its configured data directory.
+- Deleting this file (while ClipVault is not running) will erase all stored
+  history.
+
+Need help or want to reach the author?
+--------------------------------------
+
+- Author: Borgar Flaen Stensrud
+- Website: https://borgar-stensrud.no/
+
+Thank you for installing ClipVault.
+

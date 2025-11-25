@@ -5,6 +5,10 @@ It silently monitors your clipboard in the background, stores text snippets in a
 local SQLite database, and gives you a quick GUI for browsing and re‑copying past
 snippets.
 
+![ClipVault main window](program.png)
+
+![ClipVault about dialog](about.png)
+
 The project is designed to be:
 
 - **Windows‑native** – tray icon, single‑instance per user, optional autostart.
